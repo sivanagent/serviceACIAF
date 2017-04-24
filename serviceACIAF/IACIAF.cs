@@ -19,6 +19,13 @@ namespace serviceACIAF
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
+        [OperationContract]
+        int ReceiveAgent();
+
+        [OperationContract]
+        int SendAgent();
+
+
         // TODO: Add your service operations here
     }
 
