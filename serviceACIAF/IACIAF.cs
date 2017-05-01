@@ -12,21 +12,50 @@ namespace serviceACIAF
     [ServiceContract]
     public interface IACIAF
     {
-
         [OperationContract]
         string GetData(int value);
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
-        [OperationContract]
-        int ReceiveAgent();
-
-        [OperationContract]
-        int SendAgent();
-
-
         // TODO: Add your service operations here
+
+        [OperationContract]
+        RemoteACIAFAgentInstanceArchiveFileInfo 
+        SendAgentInstanceArchiveToRemoteACIAFServer(DownloadArchivedAgentRequest request);
+
+        [OperationContract]
+        void ReceiveAgentInstanceArchiveFROMRemoteACIAFServer(
+            RemoteACIAFAgentInstanceArchiveFileInfo request);
+    }
+    [MessageContract]
+    public class DownloadArchivedAgentRequest
+    {
+        [MessageBodyMember]
+        public string FileName;
+    }
+    [MessageContract]
+    public class RemoteACIAFAgentInstanceArchiveFileInfo  //: IDisposable
+    {
+        [MessageHeader(MustUnderstand = true)]
+        public string FileName; 
+
+        [MessageHeader(MustUnderstand = true)]
+        public long Length; // { get; set; }
+
+        [MessageBodyMember(Order = 1)]
+        public System.IO.Stream FileByteStream; 
+
+        /****
+        public void Dispose()
+        {
+            if (FileByteStream != null)
+            {
+                FileByteStream.Close();
+                FileByteStream = null;
+            }
+        } 
+        ****/
     }
 
 
@@ -51,4 +80,10 @@ namespace serviceACIAF
             set { stringValue = value; }
         }
     }
+
+
+
+
+
+
 }
