@@ -68,7 +68,7 @@ namespace serviceACIAF
             FileStream targetStream = null;
             Stream sourceStream = request.FileByteStream;
 
-            string uploadFolder = @"C:\uploadedToMe\";
+            string uploadFolder = @"d:\toRECEIVE";
 
             string filePath = Path.Combine(uploadFolder, request.FileName);
 
@@ -84,6 +84,7 @@ namespace serviceACIAF
                 {
                     // save to output stream
                     targetStream.Write(buffer, 0, count);
+                    count = 0;
                 }
                 targetStream.Close();
                 sourceStream.Close();
